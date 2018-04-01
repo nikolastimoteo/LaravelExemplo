@@ -27,3 +27,6 @@ Route::get('/users/{id}/{name}', function ($id, $name) {
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
+
+//Cria uma rota para cada metodo básico do controller
+Route::resource('posts', 'PostsController');
