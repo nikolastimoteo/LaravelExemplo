@@ -30,3 +30,7 @@ Route::get('/services', 'PagesController@services');
 
 //Cria uma rota para cada metodo básico do controller
 Route::resource('posts', 'PostsController');
+
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index');
