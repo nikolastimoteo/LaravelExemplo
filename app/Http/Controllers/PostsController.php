@@ -8,6 +8,17 @@ use App\Post;
 class PostsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // as views que podem ser exibidas mesmo sem autenticação
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -80,8 +91,14 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $data = Post::find($id);
-        return view('posts.edit')->with('post', $data);
+        $post = Post::find($id);
+
+        // Verificando o usuário
+        if(auth()->user()->id !== $post->user_id){
+            return redirect('/posts')->with('error', 'Acesso negado!');
+        }
+
+        return view('posts.edit')->with('post', $post);
     }
 
     /**
@@ -118,8 +135,13 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
-        $post->delete();
 
+        // Verificando o usuário
+        if(auth()->user()->id !== $post->user_id){
+            return redirect('/posts')->with('error', 'Acesso negado!');
+        }
+
+        $post->delete();
         return redirect('/posts')->with('success', 'Post excluido');
     }
 }
