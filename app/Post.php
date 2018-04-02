@@ -14,4 +14,8 @@ class Post extends Model
 
     // Para tirar as timestamps (é 'true' por padrão)
     // public $timestamps = 'false';
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }
