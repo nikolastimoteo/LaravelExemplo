@@ -9,8 +9,9 @@ class PagesController extends Controller
     //Chama a pagina principal
     public function index()
     {
-        $title = 'Welcome to Laravel!';
-        return view('pages.index')->with('title', $title);
+        \App::setLocale('pt-br');
+        //$title = 'Welcome to Laravel!';
+        return view('pages.index');//->with('title', $title);
     }
 
     //Chama a pagina sobre
